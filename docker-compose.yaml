@@ -1,0 +1,27 @@
+version: "3"
+services:
+        xchain:
+                image: zfq17876911936/chaojigongshi-xchain:1.0
+                container_name: xchain
+                ports:
+                  - "37101:37101"
+                  - "47101:47101"
+                networks:
+                  - xuper
+        xchain-httpgw:
+                image: zfq17876911936/chaojigongshi-xchain-httpgw:1.0
+                container_name: xchain-httpgw
+                ports:
+                  - "8123:8123"
+                command: -http_endpoint :8123 -gateway_endpoint xchain:37101
+                networks:
+                  - xuper
+        xupercc:
+                image: zfq17876911936/chaojigongshi-xupercc:1.0
+                container_name: xupercc
+                ports:
+                  - "8080:8080"
+                networks:
+                  - xuper
+networks:
+        xuper:
